@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/genexus-dynamic-menu.esm.js"></script>
+    <script nomodule src="/build/genexus-dynamic-menu.js"></script>
+  </head>
+  <body style="padding: 20px">
+    <dynamic-menu>
+
+      <dynamic-menu-action item-title="Destino" popup-id="pop1" slot="menu-items">
+        <div>
+          <input type="text">
+        </div>
+      </dynamic-menu-action>
+      <dynamic-menu-action item-title="Llegada" item-subtitle="¿Cuando?" popup-id="pop2" slot="menu-items"></dynamic-menu-action>
+      <dynamic-menu-action item-title="Salida" item-subtitle="¿Cuando?" popup-id="pop2" slot="menu-items"></dynamic-menu-action>
+      <dynamic-menu-action item-title="Huespedes" item-subtitle="¿Cuantos?" popup-id="pop3" slot="menu-items">
+        <div slot="right">
+          <button>Hola</button>
+        </div>
+      </dynamic-menu-action>
+
+      <dynamic-menu-popup id="pop1" slot="menu-popup">
+        <div slot="data">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed metus mauris, condimentum et posuere eu, suscipit vel quam.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur consectetur erat, a consectetur turpis cursus sit amet.
+          Duis tincidunt odio eget magna imperdiet blandit. Sed cursus risus id finibus pellentesque. Vivamus pellentesque arcu at nunc rutrum interdum.
+          Curabitur in lorem lobortis, rhoncus augue et, placerat augue. Pellentesque quis sem ut sapien sollicitudin dignissim sed eu ligula.
+          Mauris ullamcorper ex erat, sed tincidunt massa cursus rutrum. Duis ultrices nisi vulputate dui elementum, vitae vehicula dui aliquam.
+          Nunc tellus nisi, varius ut ligula id, hendrerit pharetra justo. In at rutrum est. Pellentesque gravida sed dui ullamcorper vulputate.
+          Nulla ut nulla faucibus, feugiat neque nec, iaculis massa.
+        </div>
+      </dynamic-menu-popup>
+
+      <dynamic-menu-popup id="pop2" slot="menu-popup">
+        <div slot="data">
+          Popup para fecha
+        </div>
+      </dynamic-menu-popup>
+
+      <dynamic-menu-popup id="pop3" slot="menu-popup">
+        <div slot="data">
+          Otro popup
+        </div>
+      </dynamic-menu-popup>
+
+    </dynamic-menu>
+  </body>
+</html>
