@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'genexus-dynamic-menu',
+  namespace: 'gx-dynamic-menu',
   outputTargets: [
     {
       type: 'dist',
