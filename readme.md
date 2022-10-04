@@ -1,4 +1,4 @@
-# GX Dynamic
+# GX Dynamic Menu
 
 This is a dynamic menu of components for genexus.
 

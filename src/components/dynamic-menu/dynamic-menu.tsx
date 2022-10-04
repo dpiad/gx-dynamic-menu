@@ -1,4 +1,4 @@
-import { Component, Host, h, Listen, State } from '@stencil/core';
+import { Component, Host, h, Listen } from '@stencil/core';
 import { MenuActionActiveEvent } from '../dynamic-menu-action/dynamic-menu-action';
 
 @Component({
@@ -46,7 +46,7 @@ export class DynamicMenu {
     this.actionClick(event.detail);
   }
 
-  async actionClick(cmpEv: MenuActionActiveEvent){
+  async actionClick(_cmpEv: MenuActionActiveEvent){
     // await this.inactiveMenuItems();
 
     // if(cmpEv && !cmpEv.active){
