@@ -17,7 +17,7 @@ export class DynamicMenuPopup {
   render() {
     return (
       <Host>
-        <div class={'popup-data' + (!this.open ? ' hidden' : '')}>
+        <div class={'popup-data' + (!this.open ? ' hidden' : '')} part="popup-data" exportparts="popup-data">
           <slot name="data"></slot>
         </div>
       </Host>

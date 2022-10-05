@@ -83,10 +83,10 @@ export class DynamicMenu {
   render() {
     return (
       <Host>
-        <div class="menu-container">
-          <div class="menu-data">
+        <div class="menu-container" part="menu-container" exportparts="menu-container">
+          <div class="menu-data" part="menu-data" exportparts="menu-data">
             <slot name="menu-items"></slot>
-            <div class="menu-popup">
+            <div class="menu-popup" part="menu-popup" exportparts="menu-popup">
               <slot name="menu-popup"></slot>
             </div>
           </div>

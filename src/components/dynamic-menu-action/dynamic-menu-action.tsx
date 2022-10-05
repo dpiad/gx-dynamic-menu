@@ -27,17 +27,17 @@ export class DynamicMenuAction {
   render() {
     return (
       <Host>
-        <div class={`item ${this.active ? 'active' : ''}`} onClick={_ => this.activeHandler()}>
-          <div class="item-data">
-            <div class="title">
+        <div class={`item ${this.active ? 'active' : ''}`} onClick={_ => this.activeHandler()} part="item" exportparts="item">
+          <div class="item-data" part="item-data" exportparts="item-data">
+            <div class="title" part="title" exportparts="title">
               {this.itemTitle}
             </div>
-            <div class="subtitle">
+            <div class="subtitle" part="subtitle" exportparts="subtitle">
               {this.itemSubtitle}
             </div>
             <slot></slot>
           </div>
-          <div class="item-right">
+          <div class="item-right" part="item-right" exportparts="item-right">
             <slot name="right"></slot>
           </div>
         </div>

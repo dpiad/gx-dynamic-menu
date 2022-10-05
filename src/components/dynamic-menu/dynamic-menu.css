@@ -24,7 +24,7 @@
 .menu-container .menu-data{
   display: flex;
   flex-direction: row;
-  margin: 20px auto;
+  margin: 0 auto;
   background-color: #ebebeb;
   border: 1px solid #dddddd;
   border-radius: 40px;
