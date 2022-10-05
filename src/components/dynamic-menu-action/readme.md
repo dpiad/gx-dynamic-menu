@@ -34,6 +34,17 @@ Type: `Promise<void>`
 
 
 
+## Shadow Parts
+
+| Part           | Description |
+| -------------- | ----------- |
+| `"item"`       |             |
+| `"item-data"`  |             |
+| `"item-right"` |             |
+| `"subtitle"`   |             |
+| `"title"`      |             |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
