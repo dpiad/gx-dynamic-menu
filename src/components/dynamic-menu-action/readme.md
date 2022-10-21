@@ -38,7 +38,6 @@ Type: `Promise<void>`
 
 | Part           | Description |
 | -------------- | ----------- |
-| `"item"`       |             |
 | `"item-data"`  |             |
 | `"item-right"` |             |
 | `"subtitle"`   |             |

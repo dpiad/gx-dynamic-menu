@@ -7,11 +7,10 @@
 
 ## Shadow Parts
 
-| Part               | Description |
-| ------------------ | ----------- |
-| `"menu-container"` |             |
-| `"menu-data"`      |             |
-| `"menu-popup"`     |             |
+| Part             | Description |
+| ---------------- | ----------- |
+| `"menu-content"` |             |
+| `"menu-popup"`   |             |
 
 
 ----------------------------------------------

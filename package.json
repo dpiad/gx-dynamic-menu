@@ -19,7 +19,7 @@
     "loader/"
   ],
   "scripts": {
-    "build": "node ./node_modules/@stencil/core/bin/stencil build --docs'",
+    "build": "node ./node_modules/@stencil/core/bin/stencil build --docs",
     "start": "node ./node_modules/@stencil/core/bin/stencil build --dev --watch --serve",
     "test": "node ./node_modules/@stencil/core/bin/stencil test --spec --e2e",
     "test.watch": "node ./node_modules/@stencil/core/bin/stencil test --spec --e2e --watchAll",

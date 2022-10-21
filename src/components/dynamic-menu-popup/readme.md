@@ -18,13 +18,6 @@ Type: `Promise<void>`
 
 
 
-## Shadow Parts
-
-| Part           | Description |
-| -------------- | ----------- |
-| `"popup-data"` |             |
-
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
