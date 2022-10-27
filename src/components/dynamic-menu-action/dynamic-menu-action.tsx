@@ -42,7 +42,7 @@ export class DynamicMenuAction {
           <div class="subtitle" part="subtitle" exportparts="subtitle">
             {this.itemSubtitle}
           </div>
-          <slot></slot>
+          <slot name="data"></slot>
         </div>
         <div class="item-right" part="item-right" exportparts="item-right">
           <slot name="right"></slot>

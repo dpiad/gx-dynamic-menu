@@ -23,7 +23,7 @@ export class DynamicMenuPopup {
           hidden: !this.open,
         }}
       >
-        <slot></slot>
+        <slot name="data"></slot>
       </Host>
     );
   }
