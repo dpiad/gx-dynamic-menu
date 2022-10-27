@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property   | Attribute   | Description | Type     | Default     |
+| ---------- | ----------- | ----------- | -------- | ----------- |
+| `cssClass` | `css-class` |             | `string` | `undefined` |
+
+
 ## Methods
 
 ### `openItem(a?: boolean) => Promise<void>`

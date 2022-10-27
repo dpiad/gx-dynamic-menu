@@ -9,6 +9,7 @@
 
 | Property       | Attribute       | Description | Type     | Default     |
 | -------------- | --------------- | ----------- | -------- | ----------- |
+| `cssClass`     | `css-class`     |             | `string` | `undefined` |
 | `itemSubtitle` | `item-subtitle` |             | `string` | `undefined` |
 | `itemTitle`    | `item-title`    |             | `string` | `undefined` |
 | `popupId`      | `popup-id`      |             | `string` | `undefined` |
@@ -38,7 +39,6 @@ Type: `Promise<void>`
 
 | Part           | Description |
 | -------------- | ----------- |
-| `"item-data"`  |             |
 | `"item-right"` |             |
 | `"subtitle"`   |             |
 | `"title"`      |             |
