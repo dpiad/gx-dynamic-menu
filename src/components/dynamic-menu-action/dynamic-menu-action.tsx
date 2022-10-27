@@ -10,6 +10,7 @@ export class DynamicMenuAction {
 
   @Event() activeEmit: EventEmitter<MenuActionActiveEvent>;
 
+  @Prop() readonly cssClass: string;
   @Prop() itemTitle: string;
   @Prop() itemSubtitle: string;
   @Prop() popupId: string;
@@ -27,8 +28,14 @@ export class DynamicMenuAction {
 
   render() {
     return (
-      <Host class={this.active ? 'active' : ''} onClick={_ => this.activeHandler()} >
-        <div class="item-data" part="item-data" exportparts="item-data">
+      <Host
+        class={{
+          [this.cssClass]: !!this.cssClass,
+          active: this.active,
+        }}
+        onClick={_ => this.activeHandler()}
+        >
+        <div class="item-data">
           <div class="title" part="title" exportparts="title">
             {this.itemTitle}
           </div>

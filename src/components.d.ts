@@ -8,14 +8,17 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MenuActionActiveEvent } from "./components/dynamic-menu-action/dynamic-menu-action";
 export namespace Components {
     interface DynamicMenu {
+        "cssClass": string;
     }
     interface DynamicMenuAction {
         "activeItem": (a?: boolean) => Promise<void>;
+        "cssClass": string;
         "itemSubtitle": string;
         "itemTitle": string;
         "popupId": string;
     }
     interface DynamicMenuPopup {
+        "cssClass": string;
         "openItem": (a?: boolean) => Promise<void>;
     }
 }
@@ -50,14 +53,17 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DynamicMenu {
+        "cssClass"?: string;
     }
     interface DynamicMenuAction {
+        "cssClass"?: string;
         "itemSubtitle"?: string;
         "itemTitle"?: string;
         "onActiveEmit"?: (event: DynamicMenuActionCustomEvent<MenuActionActiveEvent>) => void;
         "popupId"?: string;
     }
     interface DynamicMenuPopup {
+        "cssClass"?: string;
     }
     interface IntrinsicElements {
         "dynamic-menu": DynamicMenu;

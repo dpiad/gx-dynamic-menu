@@ -1,4 +1,4 @@
-import { Component, Host, h, Listen } from '@stencil/core';
+import { Component, Host, h, Listen, Prop } from '@stencil/core';
 import { MenuActionActiveEvent } from '../dynamic-menu-action/dynamic-menu-action';
 
 @Component({
@@ -7,6 +7,8 @@ import { MenuActionActiveEvent } from '../dynamic-menu-action/dynamic-menu-actio
   shadow: true,
 })
 export class DynamicMenu {
+
+  @Prop() readonly cssClass: string;
 
   componentWillLoad(){
     document.addEventListener("mousedown", async (e: any) => {
@@ -82,10 +84,14 @@ export class DynamicMenu {
 
   render() {
     return (
-      <Host>
+      <Host
+        class={{
+          [this.cssClass]: !!this.cssClass,
+        }}
+      >
         <div class="menu-content" part="menu-content" exportparts="menu-content">
           <slot name="menu-items"></slot>
-          <div class="menu-popup" part="menu-popup" exportparts="menu-popup">
+          <div class="menu-popup">
             <slot name="menu-popup"></slot>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Method } from '@stencil/core';
+import { Component, Host, h, State, Method, Prop } from '@stencil/core';
 
 @Component({
   tag: 'dynamic-menu-popup',
@@ -7,6 +7,7 @@ import { Component, Host, h, State, Method } from '@stencil/core';
 })
 export class DynamicMenuPopup {
 
+  @Prop() readonly cssClass: string;
   @State() open: boolean = false;
 
   @Method()
@@ -16,7 +17,12 @@ export class DynamicMenuPopup {
 
   render() {
     return (
-      <Host class={!this.open ? ' hidden' : ''}>
+      <Host
+        class={{
+          [this.cssClass]: !!this.cssClass,
+          hidden: !this.open,
+        }}
+      >
         <slot></slot>
       </Host>
     );

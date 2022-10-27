@@ -1,7 +1,6 @@
 :host {
   display: flex;
   flex-direction: row;
-  height: 45px;
   padding: 15px 25px;
   border-radius: 40px;
   cursor: pointer;
