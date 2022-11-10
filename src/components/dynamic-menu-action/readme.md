@@ -9,6 +9,7 @@
 
 | Property       | Attribute       | Description | Type     | Default     |
 | -------------- | --------------- | ----------- | -------- | ----------- |
+| `activeClass`  | `active-class`  |             | `string` | `undefined` |
 | `cssClass`     | `css-class`     |             | `string` | `undefined` |
 | `itemSubtitle` | `item-subtitle` |             | `string` | `undefined` |
 | `itemTitle`    | `item-title`    |             | `string` | `undefined` |
