@@ -1,5 +1,4 @@
-import { Component, Host, h, Listen, Prop } from '@stencil/core';
-import { MenuActionActiveEvent } from '../dynamic-menu-action/dynamic-menu-action';
+import { Component, Host, h, Prop, Element } from '@stencil/core';
 
 @Component({
   tag: 'dynamic-menu',
@@ -8,77 +7,126 @@ import { MenuActionActiveEvent } from '../dynamic-menu-action/dynamic-menu-actio
 })
 export class DynamicMenu {
 
+  @Element() el: HTMLElement;
   @Prop() readonly cssClass: string;
 
+  topLevelNodes = [];
+  controlledNodes = [];
+  openIndex = null;
+
   componentWillLoad(){
-    document.addEventListener("mousedown", async (e: any) => {
-      let activeActionMenuBig = false;
-      let inactiveMenuItems = true;
-      let hidePopups = true;
-      for (const path of e.path.reverse()){
-        if(path.className === 'menu-big-data')
-          inactiveMenuItems = false;
-        if(path.nodeName === 'DYNAMIC-MENU-ACTION')
-          activeActionMenuBig = path;
-        if(path.nodeName === 'DYNAMIC-MENU-POPUP'){
-          inactiveMenuItems = false;
-          hidePopups = false;
+
+    this.topLevelNodes = [
+      ...this.el.querySelectorAll(
+        'dynamic-menu-action'
+      ),
+    ];
+
+    this.topLevelNodes.forEach((node) => {
+      // handle action + popup
+      if (
+        node.hasAttribute('popup-id')
+      ) {
+        const popup = node.parentNode.querySelector(`dynamic-menu-popup#${node.getAttribute('popup-id')}`);
+        if (popup) {
+          // save ref controlled popup
+          this.controlledNodes.push(popup);
+
+          // collapse popup
+          this.activateMenuAction(node, false);
+          this.activateMenuPopup(popup, false);
+
+          // attach event listeners
+          node.addEventListener('click', this.onActionClick.bind(this));
+          node.addEventListener('keydown', this.onActionKeyDown.bind(this));
         }
       }
-
-
-      if(hidePopups){
-        await this.hidePopup();
-      }
-      if(inactiveMenuItems){
-        await this.inactiveMenuItems();
-      }
-
-      if(activeActionMenuBig){
-        // if(activeActionMenuBig == e.target){
-          await this.inactiveMenuItems();
-          await this.activateMenuAction(activeActionMenuBig);
-        // }
-      }
     });
+
+    this.el.addEventListener('focusout', this.onBlur.bind(this));
   }
 
-  @Listen('activeEmit')
-  activeEmitHandler(event: CustomEvent<MenuActionActiveEvent>) {
-    this.actionClick(event.detail);
+  onActionClick(event) {
+    let action = event.target;
+    let actionIndex = this.topLevelNodes.indexOf(action);
+    let actionExpanded = action.getAttribute('aria-expanded') === 'true';
+    this.toggleExpand(actionIndex, !actionExpanded);
   }
 
-  async actionClick(_cmpEv: MenuActionActiveEvent){
-    // await this.inactiveMenuItems();
+  onActionKeyDown(event) {
+    let targetActionIndex = this.topLevelNodes.indexOf(document.activeElement);
 
-    // if(cmpEv && !cmpEv.active){
-    //   const popupItem: any = document.querySelector(`#${cmpEv.item.popupId}`);
-    //   await cmpEv.item.activeItem();
-    //   await popupItem.openItem();
-    // }
+    // close on escape
+    if (event.code === 'Escape') {
+      this.toggleExpand(this.openIndex, false);
+    }
+    else if (event.code === 'Space' || event.code === 'Enter') {
+      this.toggleExpand(targetActionIndex, this.openIndex !== targetActionIndex);
+    }
+    else {
+      this.controlFocusByKey(event, this.topLevelNodes, targetActionIndex);
+    }
   }
 
-  async activateMenuAction(aElement: any){
+  toggleExpand(index, expanded) {
+    // close open menu, if applicable
+    if (this.openIndex !== index) {
+      this.toggleExpand(this.openIndex, false);
+    }
+
+    // handle menu at called index
+    if (this.topLevelNodes[index]) {
+      this.openIndex = expanded ? index : null;
+      this.activateMenuAction(this.topLevelNodes[index], expanded);
+      this.activateMenuPopup(this.controlledNodes[index], expanded);
+    }
+  }
+
+  controlFocusByKey(keyboardEvent, nodeList, currentIndex) {
+    switch (keyboardEvent.code) {
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        keyboardEvent.preventDefault();
+        if (currentIndex > -1) {
+          var prevIndex = Math.max(0, currentIndex - 1);
+          nodeList[prevIndex].focus();
+        }
+        break;
+      case 'ArrowDown':
+      case 'ArrowRight':
+        keyboardEvent.preventDefault();
+        if (currentIndex > -1) {
+          var nextIndex = Math.min(nodeList.length - 1, currentIndex + 1);
+          nodeList[nextIndex].focus();
+        }
+        break;
+      case 'Home':
+        keyboardEvent.preventDefault();
+        nodeList[0].focus();
+        break;
+      case 'End':
+        keyboardEvent.preventDefault();
+        nodeList[nodeList.length - 1].focus();
+        break;
+    }
+  }
+
+  async activateMenuAction(aElement: any, active){
     if(aElement){
-      const popupItem: any = document.querySelector(`#${aElement.popupId}`);
-      await aElement.activeItem();
-      await popupItem.openItem();
+      await aElement.activeItem(active);
     }
   }
 
-  async inactiveMenuItems(){
-    await customElements.whenDefined('dynamic-menu-action');
-    const actionListElements = document.querySelectorAll('dynamic-menu-action');
-    for(let aElement of actionListElements){
-      await aElement.activeItem(false);
+  async activateMenuPopup(popupItem: any, open){
+    if(popupItem){
+      await popupItem.openItem(open);
     }
   }
 
-  async hidePopup(){
-    await customElements.whenDefined('dynamic-menu-popup');
-    const popupListElements = document.querySelectorAll('dynamic-menu-popup');
-    for(let pElement of popupListElements){
-      await pElement.openItem(false);
+  onBlur(event) {
+    var menuContainsFocus = this.el.contains(event.relatedTarget);
+    if (!menuContainsFocus && this.openIndex !== null) {
+      this.toggleExpand(this.openIndex, false);
     }
   }
 

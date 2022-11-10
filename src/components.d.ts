@@ -11,6 +11,7 @@ export namespace Components {
         "cssClass": string;
     }
     interface DynamicMenuAction {
+        "activeClass": string;
         "activeItem": (a?: boolean) => Promise<void>;
         "cssClass": string;
         "itemSubtitle": string;
@@ -56,6 +57,7 @@ declare namespace LocalJSX {
         "cssClass"?: string;
     }
     interface DynamicMenuAction {
+        "activeClass"?: string;
         "cssClass"?: string;
         "itemSubtitle"?: string;
         "itemTitle"?: string;

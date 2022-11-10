@@ -13,8 +13,9 @@
     <dynamic-menu css-class="gx-dynamic-menu">
 
       <dynamic-menu-action item-title="Destino" popup-id="pop1" slot="menu-items" css-class="gx-dynamic-menu-action">
-        <div>
-          <input type="text">
+        <div slot="data">
+          <label for="search">Buscar</label>
+          <input type="text" id="search">
         </div>
       </dynamic-menu-action>
       <dynamic-menu-action item-title="Llegada" item-subtitle="¿Cuando?" popup-id="pop2" slot="menu-items"></dynamic-menu-action>
@@ -26,7 +27,7 @@
       </dynamic-menu-action>
 
       <dynamic-menu-popup id="pop1" slot="menu-popup">
-        <div>
+        <div slot="data">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed metus mauris, condimentum et posuere eu, suscipit vel quam.
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consectetur consectetur erat, a consectetur turpis cursus sit amet.
           Duis tincidunt odio eget magna imperdiet blandit. Sed cursus risus id finibus pellentesque. Vivamus pellentesque arcu at nunc rutrum interdum.
@@ -38,13 +39,13 @@
       </dynamic-menu-popup>
 
       <dynamic-menu-popup id="pop2" slot="menu-popup">
-        <div>
+        <div slot="data">
           Popup para fecha
         </div>
       </dynamic-menu-popup>
 
       <dynamic-menu-popup id="pop3" slot="menu-popup">
-        <div>
+        <div slot="data">
           Otro popup
         </div>
       </dynamic-menu-popup>

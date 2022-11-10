@@ -18,6 +18,7 @@ export class DynamicMenuPopup {
   render() {
     return (
       <Host
+        tabindex="0"
         class={{
           [this.cssClass]: !!this.cssClass,
           hidden: !this.open,

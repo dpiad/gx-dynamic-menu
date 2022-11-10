@@ -11,13 +11,13 @@ export class DynamicMenuAction {
   @Event() activeEmit: EventEmitter<MenuActionActiveEvent>;
 
   @Prop() readonly cssClass: string;
+  @Prop() readonly activeClass: string;
   @Prop() itemTitle: string;
   @Prop() itemSubtitle: string;
   @Prop() popupId: string;
   @State() active: boolean = false;
 
   activeHandler() {
-    console.log('hola')
     this.activeEmit.emit({active: this.active, item: this});
   }
 
@@ -29,9 +29,13 @@ export class DynamicMenuAction {
   render() {
     return (
       <Host
+        role="button"
+        tabindex="0"
+        aria-expanded={(!!this.active).toString()}
+        aria-controls={this.popupId}
         class={{
           [this.cssClass]: !!this.cssClass,
-          active: this.active,
+          [this.activeClass]: !!this.activeClass && this.active,
         }}
         onClick={_ => this.activeHandler()}
         >
