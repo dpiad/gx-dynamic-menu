@@ -22,12 +22,17 @@ export class DynamicMenu {
       ),
     ];
 
+    this.el.addEventListener('focusout', this.onBlur.bind(this));
+  }
+
+  componentDidLoad(){
+
     this.topLevelNodes.forEach((node) => {
       // handle action + popup
       if (
-        node.hasAttribute('popup-id')
+        node.hasAttribute('aria-controls')
       ) {
-        const popup = this.el.querySelector(`dynamic-menu-popup#${node.getAttribute('popup-id')}`);
+        const popup = this.el.querySelector(`dynamic-menu-popup#${node.getAttribute('aria-controls')}`);
         if (popup) {
           // save ref controlled popup
           this.controlledNodes.push(popup);
@@ -41,13 +46,13 @@ export class DynamicMenu {
           node.addEventListener('keydown', this.onActionKeyDown.bind(this));
         }
       }
+      node.addEventListener('click', this.onActionClick.bind(this));
     });
-
-    this.el.addEventListener('focusout', this.onBlur.bind(this));
   }
 
   onActionClick(event) {
     let action = event.target;
+    console.log( action.hasAttribute('aria-controls'))
     let actionIndex = this.topLevelNodes.indexOf(action);
     let actionExpanded = action.getAttribute('aria-expanded') === 'true';
     this.toggleExpand(actionIndex, !actionExpanded);
