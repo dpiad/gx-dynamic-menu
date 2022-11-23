@@ -27,7 +27,7 @@ export class DynamicMenu {
       if (
         node.hasAttribute('popup-id')
       ) {
-        const popup = node.parentNode.querySelector(`dynamic-menu-popup#${node.getAttribute('popup-id')}`);
+        const popup = this.el.querySelector(`dynamic-menu-popup#${node.getAttribute('popup-id')}`);
         if (popup) {
           // save ref controlled popup
           this.controlledNodes.push(popup);
