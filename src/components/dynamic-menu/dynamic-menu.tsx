@@ -1,4 +1,15 @@
-import { Component, Host, h, Prop, Element } from '@stencil/core';
+import { Component, Host, h, Prop, Element, Listen } from '@stencil/core';
+import { MenuActionActiveEvent } from '../dynamic-menu-action/dynamic-menu-action';
+
+const ENTER_KEY_CODE = 'Enter';
+const ESCAPE_KEY_CODE = 'Escape';
+const SPACE_KEY_CODE = 'Space';
+const ARROWUP_KEY_CODE = 'ArrowUp';
+const ARROWLEFT_KEY_CODE = 'ArrowLeft';
+const ARROWDOWN_KEY_CODE = 'ArrowDown';
+const ARROWRIGHT_KEY_CODE = 'ArrowRight';
+const HOME_KEY_CODE = 'Home';
+const END_KEY_CODE = 'End';
 
 @Component({
   tag: 'dynamic-menu',
@@ -6,132 +17,118 @@ import { Component, Host, h, Prop, Element } from '@stencil/core';
   shadow: true,
 })
 export class DynamicMenu {
+  private menuActions: HTMLDynamicMenuActionElement[] = [];
+  private menuPopups: HTMLDynamicMenuPopupElement[] = [];
+  private openIndex = null;
 
-  @Element() el: HTMLElement;
+  @Element() el: HTMLDynamicMenuElement;
+
   @Prop() readonly cssClass: string;
 
-  topLevelNodes = [];
-  controlledNodes = [];
-  openIndex = null;
-
-  componentWillLoad(){
-
-    this.topLevelNodes = [
-      ...this.el.querySelectorAll(
-        'dynamic-menu-action'
-      ),
-    ];
-
-    this.el.addEventListener('focusout', this.onBlur.bind(this));
+  componentWillLoad() {
+    this.menuActions = [...this.el.querySelectorAll('dynamic-menu-action')];
+    this.el.addEventListener('focusout', this.onBlur);
   }
 
-  componentDidLoad(){
-
-    this.topLevelNodes.forEach((node) => {
+  componentDidLoad() {
+    this.menuActions.forEach(action => {
       // handle action + popup
-      if (
-        node.hasAttribute('aria-controls')
-      ) {
-        const popup = this.el.querySelector(`dynamic-menu-popup#${node.getAttribute('aria-controls')}`);
-        if (popup) {
+      if (action.hasAttribute('aria-controls')) {
+        const popup: HTMLDynamicMenuPopupElement = this.el.querySelector(`dynamic-menu-popup#${action.getAttribute('aria-controls')}`);
+        if (popup !== null && popup !== undefined) {
           // save ref controlled popup
-          this.controlledNodes.push(popup);
+          this.menuPopups.push(popup);
 
           // collapse popup
-          this.activateMenuAction(node, false);
           this.activateMenuPopup(popup, false);
-
-          // attach event listeners
-          node.addEventListener('click', this.onActionClick.bind(this));
-          node.addEventListener('keydown', this.onActionKeyDown.bind(this));
         }
       }
-      node.addEventListener('click', this.onActionClick.bind(this));
     });
   }
 
-  onActionClick(event) {
-    let action = event.target;
-    console.log( action.hasAttribute('aria-controls'))
-    let actionIndex = this.topLevelNodes.indexOf(action);
-    let actionExpanded = action.getAttribute('aria-expanded') === 'true';
-    this.toggleExpand(actionIndex, !actionExpanded);
+  @Listen('menuActionActivated')
+  handleActionActivated(event: CustomEvent<MenuActionActiveEvent>) {
+    const actionIndex = this.menuActions.indexOf(event.detail.item);
+    this.toggleExpand(actionIndex, event.detail.active);
   }
 
-  onActionKeyDown(event) {
-    let targetActionIndex = this.topLevelNodes.indexOf(document.activeElement);
+  @Listen('menuActionKeyDown')
+  handleActionKeyDown(event: CustomEvent<KeyboardEvent>) {
+    const keyboardEvent = event.detail;
+    const targetActionIndex = this.menuActions.indexOf(document.activeElement as HTMLDynamicMenuActionElement);
 
     // close on escape
-    if (event.code === 'Escape') {
+    if (keyboardEvent.code === ESCAPE_KEY_CODE) {
+      keyboardEvent.preventDefault();
+      this.menuActions[targetActionIndex].active = false;
       this.toggleExpand(this.openIndex, false);
-    }
-    else if (event.code === 'Space' || event.code === 'Enter') {
+    } else if (keyboardEvent.code === SPACE_KEY_CODE || keyboardEvent.code === ENTER_KEY_CODE) {
+      keyboardEvent.preventDefault();
+      this.menuActions[targetActionIndex].active = this.openIndex !== targetActionIndex;
       this.toggleExpand(targetActionIndex, this.openIndex !== targetActionIndex);
-    }
-    else {
-      this.controlFocusByKey(event, this.topLevelNodes, targetActionIndex);
+    } else {
+      this.controlFocusByKey(keyboardEvent, targetActionIndex);
     }
   }
 
-  toggleExpand(index, expanded) {
+  private onBlur = (event: FocusEvent) => {
+    const menuContainsFocus = this.el.contains(event.relatedTarget as HTMLElement);
+    if (!menuContainsFocus && this.openIndex !== null) {
+      this.closeOpenAction();
+      this.toggleExpand(this.openIndex, false);
+    }
+  };
+
+  toggleExpand(index: number, expanded: boolean) {
     // close open menu, if applicable
     if (this.openIndex !== index) {
+      this.closeOpenAction();
       this.toggleExpand(this.openIndex, false);
     }
 
     // handle menu at called index
-    if (this.topLevelNodes[index]) {
+    if (this.menuActions[index] !== null && this.menuActions[index] !== undefined) {
       this.openIndex = expanded ? index : null;
-      this.activateMenuAction(this.topLevelNodes[index], expanded);
-      this.activateMenuPopup(this.controlledNodes[index], expanded);
+      this.activateMenuPopup(this.menuPopups[index], expanded);
     }
   }
 
-  controlFocusByKey(keyboardEvent, nodeList, currentIndex) {
+  closeOpenAction() {
+    if (this.openIndex !== null) this.menuActions[this.openIndex].active = false;
+  }
+
+  activateMenuPopup(popupItem: HTMLDynamicMenuPopupElement, open: boolean) {
+    if (popupItem !== null && popupItem !== undefined) {
+      popupItem.opened = open;
+    }
+  }
+
+  controlFocusByKey(keyboardEvent: KeyboardEvent, currentIndex: number) {
     switch (keyboardEvent.code) {
-      case 'ArrowUp':
-      case 'ArrowLeft':
+      case ARROWUP_KEY_CODE:
+      case ARROWLEFT_KEY_CODE:
         keyboardEvent.preventDefault();
         if (currentIndex > -1) {
-          var prevIndex = Math.max(0, currentIndex - 1);
-          nodeList[prevIndex].focus();
+          const prevIndex = Math.max(0, currentIndex - 1);
+          this.menuActions[prevIndex].focus();
         }
         break;
-      case 'ArrowDown':
-      case 'ArrowRight':
+      case ARROWDOWN_KEY_CODE:
+      case ARROWRIGHT_KEY_CODE:
         keyboardEvent.preventDefault();
         if (currentIndex > -1) {
-          var nextIndex = Math.min(nodeList.length - 1, currentIndex + 1);
-          nodeList[nextIndex].focus();
+          const nextIndex = Math.min(this.menuActions.length - 1, currentIndex + 1);
+          this.menuActions[nextIndex].focus();
         }
         break;
-      case 'Home':
+      case HOME_KEY_CODE:
         keyboardEvent.preventDefault();
-        nodeList[0].focus();
+        this.menuActions[0].focus();
         break;
-      case 'End':
+      case END_KEY_CODE:
         keyboardEvent.preventDefault();
-        nodeList[nodeList.length - 1].focus();
+        this.menuActions[this.menuActions.length - 1].focus();
         break;
-    }
-  }
-
-  async activateMenuAction(aElement: any, active){
-    if(aElement){
-      await aElement.activeItem(active);
-    }
-  }
-
-  async activateMenuPopup(popupItem: any, open){
-    if(popupItem){
-      await popupItem.openItem(open);
-    }
-  }
-
-  onBlur(event) {
-    var menuContainsFocus = this.el.contains(event.relatedTarget);
-    if (!menuContainsFocus && this.openIndex !== null) {
-      this.toggleExpand(this.openIndex, false);
     }
   }
 
@@ -151,5 +148,4 @@ export class DynamicMenu {
       </Host>
     );
   }
-
 }

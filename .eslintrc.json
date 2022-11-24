@@ -1,0 +1,30 @@
+{
+  "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+    "prettier",
+    "plugin:prettier/recommended",
+    "plugin:@stencil/recommended" // Enables @stencil/eslint-plugin.
+  ],
+  "rules": {
+    "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
+    "@typescript-eslint/no-unused-vars": [
+      "off",
+      { "varsIgnorePattern": "^(h)$" }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "@stencil/strict-boolean-conditions": ["error", ["allow-string"]],
+    "@stencil/strict-mutable": "off"
+  }
+}

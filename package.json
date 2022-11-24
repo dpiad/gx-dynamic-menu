@@ -23,15 +23,21 @@
     "start": "node ./node_modules/@stencil/core/bin/stencil build --dev --watch --serve",
     "test": "node ./node_modules/@stencil/core/bin/stencil test --spec --e2e",
     "test.watch": "node ./node_modules/@stencil/core/bin/stencil test --spec --e2e --watchAll",
-    "generate": "node ./node_modules/@stencil/core/bin/stencil generate"
+    "generate": "node ./node_modules/@stencil/core/bin/stencil generate",
+    "lint": "eslint src/**/*{.ts,.tsx}"
   },
   "dependencies": {
     "@stencil/core": "^2.13.0"
   },
   "devDependencies": {
+    "@stencil/eslint-plugin": "^0.4.0",
     "@types/jest": "^27.0.3",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
+    "prettier": "2.8.0",
     "puppeteer": "^10.0.0"
   },
   "license": "MIT"

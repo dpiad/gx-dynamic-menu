@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, State, Method, Event } from '@stencil/core';
+import { Component, Host, h, Prop, Event, Element } from '@stencil/core';
 import { EventEmitter } from '@stencil/core/internal';
 
 @Component({
@@ -7,24 +7,32 @@ import { EventEmitter } from '@stencil/core/internal';
   shadow: true,
 })
 export class DynamicMenuAction {
-
-  @Event() activeEmit: EventEmitter<MenuActionActiveEvent>;
+  @Element() el: HTMLDynamicMenuActionElement;
 
   @Prop() readonly cssClass: string;
   @Prop() readonly activeClass: string;
   @Prop() itemTitle: string;
   @Prop() itemSubtitle: string;
   @Prop() popupId: string;
-  @State() active: boolean = false;
+  @Prop({ mutable: true }) active = false;
 
-  activeHandler() {
-    this.activeEmit.emit({active: this.active, item: this});
+  @Event() menuActionActivated: EventEmitter<MenuActionActiveEvent>;
+  @Event() menuActionKeyDown: EventEmitter<KeyboardEvent>;
+
+  componentWillLoad() {
+    this.el.addEventListener('click', this.handleActionClick);
+    this.el.addEventListener('keydown', this.handleActionKeyDown);
   }
 
-  @Method()
-  async activeItem(a: boolean = true) {
-    this.active = a;
-  }
+  private handleActionClick = () => {
+    const actionExpanded = this.el.getAttribute('aria-expanded') === 'true';
+    this.active = !actionExpanded;
+    this.menuActionActivated.emit({ active: !actionExpanded, item: this.el as HTMLDynamicMenuActionElement });
+  };
+
+  private handleActionKeyDown = (event: KeyboardEvent) => {
+    this.menuActionKeyDown.emit(event);
+  };
 
   render() {
     return (
@@ -37,8 +45,7 @@ export class DynamicMenuAction {
           [this.cssClass]: !!this.cssClass,
           [this.activeClass]: !!this.activeClass && this.active,
         }}
-        onClick={_ => this.activeHandler()}
-        >
+      >
         <div class="item-data">
           <div class="title" part="title" exportparts="title">
             {this.itemTitle}
@@ -54,10 +61,9 @@ export class DynamicMenuAction {
       </Host>
     );
   }
-
 }
 
 export interface MenuActionActiveEvent {
   active: boolean;
-  item: DynamicMenuAction;
+  item: HTMLDynamicMenuActionElement;
 }

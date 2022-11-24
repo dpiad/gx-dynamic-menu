@@ -11,8 +11,8 @@ export namespace Components {
         "cssClass": string;
     }
     interface DynamicMenuAction {
+        "active": boolean;
         "activeClass": string;
-        "activeItem": (a?: boolean) => Promise<void>;
         "cssClass": string;
         "itemSubtitle": string;
         "itemTitle": string;
@@ -20,7 +20,7 @@ export namespace Components {
     }
     interface DynamicMenuPopup {
         "cssClass": string;
-        "openItem": (a?: boolean) => Promise<void>;
+        "opened": boolean;
     }
 }
 export interface DynamicMenuActionCustomEvent<T> extends CustomEvent<T> {
@@ -57,15 +57,18 @@ declare namespace LocalJSX {
         "cssClass"?: string;
     }
     interface DynamicMenuAction {
+        "active"?: boolean;
         "activeClass"?: string;
         "cssClass"?: string;
         "itemSubtitle"?: string;
         "itemTitle"?: string;
-        "onActiveEmit"?: (event: DynamicMenuActionCustomEvent<MenuActionActiveEvent>) => void;
+        "onMenuActionActivated"?: (event: DynamicMenuActionCustomEvent<MenuActionActiveEvent>) => void;
+        "onMenuActionKeyDown"?: (event: DynamicMenuActionCustomEvent<KeyboardEvent>) => void;
         "popupId"?: string;
     }
     interface DynamicMenuPopup {
         "cssClass"?: string;
+        "opened"?: boolean;
     }
     interface IntrinsicElements {
         "dynamic-menu": DynamicMenu;
