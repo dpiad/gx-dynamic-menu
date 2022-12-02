@@ -1,28 +1,23 @@
 # dynamic-menu-popup
 
-
+Popup that open when the corresponding menu action is fired, and populate dynamic content to show
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property   | Attribute   | Description | Type     | Default     |
-| ---------- | ----------- | ----------- | -------- | ----------- |
-| `cssClass` | `css-class` |             | `string` | `undefined` |
+| Property   | Attribute   | Description                                                   | Type      | Default     |
+| ---------- | ----------- | ------------------------------------------------------------- | --------- | ----------- |
+| `cssClass` | `css-class` | A CSS class to set as the `dynamic-menu-popup` element class. | `string`  | `undefined` |
+| `opened`   | `opened`    | This attribute lets you specify if the menu popup is opened   | `boolean` | `false`     |
 
 
-## Methods
+## Slots
 
-### `openItem(a?: boolean) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
+| Slot     | Description                                            |
+| -------- | ------------------------------------------------------ |
+| `"data"` | The slot where you can put the main data of the popup. |
 
 
 ----------------------------------------------

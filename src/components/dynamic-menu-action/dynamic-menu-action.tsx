@@ -1,6 +1,14 @@
 import { Component, Host, h, Prop, Event, Element } from '@stencil/core';
 import { EventEmitter } from '@stencil/core/internal';
 
+/**
+ * @part title - The title of menu action.
+ * @part subtitle - The subtitle of menu action.
+ * @part item-right - The right part of menu action, where you can put other components.
+ *
+ * @slot data - The slot where you can put the main data of the action.
+ * @slot right - The slot where you can put additional components aligned to the right of the menu action.
+ */
 @Component({
   tag: 'dynamic-menu-action',
   styleUrl: 'dynamic-menu-action.css',
@@ -9,14 +17,44 @@ import { EventEmitter } from '@stencil/core/internal';
 export class DynamicMenuAction {
   @Element() el: HTMLDynamicMenuActionElement;
 
+  /**
+   * A CSS class to set as the `dynamic-menu-action` element class.
+   */
   @Prop() readonly cssClass: string;
+
+  /**
+   * A CSS class to set as the `dynamic-menu-action` element class when `active = true`.
+   */
   @Prop() readonly activeClass: string;
+
+  /**
+   * The title of menu action.
+   */
   @Prop() itemTitle: string;
+
+  /**
+   * The subtitle of menu action.
+   */
   @Prop() itemSubtitle: string;
+
+  /**
+   * This attribute specifies which popup of the dynamic-menu must be open.
+   */
   @Prop() popupId: string;
+
+  /**
+   * This attribute lets you specify if the menu action is activated
+   */
   @Prop({ mutable: true }) active = false;
 
+  /**
+   * Fired when the menu action is activated.
+   */
   @Event() menuActionActivated: EventEmitter<MenuActionActiveEvent>;
+
+  /**
+   * Fired when a KeyboardEvent is captured for the menu action.
+   */
   @Event() menuActionKeyDown: EventEmitter<KeyboardEvent>;
 
   componentWillLoad() {

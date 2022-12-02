@@ -8,18 +8,45 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MenuActionActiveEvent } from "./components/dynamic-menu-action/dynamic-menu-action";
 export namespace Components {
     interface DynamicMenu {
+        /**
+          * A CSS class to set as the `dynamic-menu` element class.
+         */
         "cssClass": string;
     }
     interface DynamicMenuAction {
+        /**
+          * This attribute lets you specify if the menu action is activated
+         */
         "active": boolean;
+        /**
+          * A CSS class to set as the `dynamic-menu-action` element class when `active = true`.
+         */
         "activeClass": string;
+        /**
+          * A CSS class to set as the `dynamic-menu-action` element class.
+         */
         "cssClass": string;
+        /**
+          * The subtitle of menu action.
+         */
         "itemSubtitle": string;
+        /**
+          * The title of menu action.
+         */
         "itemTitle": string;
+        /**
+          * This attribute specifies which popup of the dynamic-menu must be open.
+         */
         "popupId": string;
     }
     interface DynamicMenuPopup {
+        /**
+          * A CSS class to set as the `dynamic-menu-popup` element class.
+         */
         "cssClass": string;
+        /**
+          * This attribute lets you specify if the menu popup is opened
+         */
         "opened": boolean;
     }
 }
@@ -54,20 +81,53 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DynamicMenu {
+        /**
+          * A CSS class to set as the `dynamic-menu` element class.
+         */
         "cssClass"?: string;
     }
     interface DynamicMenuAction {
+        /**
+          * This attribute lets you specify if the menu action is activated
+         */
         "active"?: boolean;
+        /**
+          * A CSS class to set as the `dynamic-menu-action` element class when `active = true`.
+         */
         "activeClass"?: string;
+        /**
+          * A CSS class to set as the `dynamic-menu-action` element class.
+         */
         "cssClass"?: string;
+        /**
+          * The subtitle of menu action.
+         */
         "itemSubtitle"?: string;
+        /**
+          * The title of menu action.
+         */
         "itemTitle"?: string;
+        /**
+          * Fired when the menu action is activated.
+         */
         "onMenuActionActivated"?: (event: DynamicMenuActionCustomEvent<MenuActionActiveEvent>) => void;
+        /**
+          * Fired when a KeyboardEvent is captured for the menu action.
+         */
         "onMenuActionKeyDown"?: (event: DynamicMenuActionCustomEvent<KeyboardEvent>) => void;
+        /**
+          * This attribute specifies which popup of the dynamic-menu must be open.
+         */
         "popupId"?: string;
     }
     interface DynamicMenuPopup {
+        /**
+          * A CSS class to set as the `dynamic-menu-popup` element class.
+         */
         "cssClass"?: string;
+        /**
+          * This attribute lets you specify if the menu popup is opened
+         */
         "opened"?: boolean;
     }
     interface IntrinsicElements {

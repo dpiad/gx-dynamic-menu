@@ -11,6 +11,12 @@ const ARROWRIGHT_KEY_CODE = 'ArrowRight';
 const HOME_KEY_CODE = 'Home';
 const END_KEY_CODE = 'End';
 
+/**
+ * @part menu-content - The container of dynamic-menu.
+ *
+ * @slot menu-items - The slot where live the menu actions.
+ * @slot menu-popup - The slot where live the menu popups.
+ */
 @Component({
   tag: 'dynamic-menu',
   styleUrl: 'dynamic-menu.css',
@@ -23,6 +29,9 @@ export class DynamicMenu {
 
   @Element() el: HTMLDynamicMenuElement;
 
+  /**
+   * A CSS class to set as the `dynamic-menu` element class.
+   */
   @Prop() readonly cssClass: string;
 
   componentWillLoad() {
@@ -52,6 +61,13 @@ export class DynamicMenu {
     this.toggleExpand(actionIndex, event.detail.active);
   }
 
+  /**
+   * Listen when a KeyboardEvent is captured for some menu action, and manage what doing for some keys.
+   * Space, Enter: Activates the menu action.
+   * Esc: Inactivated menu action if is active and close the popup open if correspond.
+   * ArrowUp, ArrowDown, ArrowLeft, ArrowRight: Navigate for the menu actions, putting them focused.
+   * Home, End: Navigate to the first or last menu action.
+   */
   @Listen('menuActionKeyDown')
   handleActionKeyDown(event: CustomEvent<KeyboardEvent>) {
     const keyboardEvent = event.detail;
