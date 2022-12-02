@@ -14,10 +14,10 @@ Menu for populate dynamic content
 
 ## Slots
 
-| Slot           | Description                           |
-| -------------- | ------------------------------------- |
-| `"menu-items"` | The slot where live the menu actions. |
-| `"menu-popup"` | The slot where live the menu popups.  |
+| Slot          | Description                           |
+| ------------- | ------------------------------------- |
+| `"menuitems"` | The slot where live the menu actions. |
+| `"menupopup"` | The slot where live the menu popups.  |
 
 
 ## Shadow Parts

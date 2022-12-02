@@ -14,8 +14,8 @@ const END_KEY_CODE = 'End';
 /**
  * @part menu-content - The container of dynamic-menu.
  *
- * @slot menu-items - The slot where live the menu actions.
- * @slot menu-popup - The slot where live the menu popups.
+ * @slot menuitems - The slot where live the menu actions.
+ * @slot menupopup - The slot where live the menu popups.
  */
 @Component({
   tag: 'dynamic-menu',
@@ -156,9 +156,9 @@ export class DynamicMenu {
         }}
       >
         <div class="menu-content" part="menu-content" exportparts="menu-content">
-          <slot name="menu-items"></slot>
+          <slot name="menuitems"></slot>
           <div class="menu-popup">
-            <slot name="menu-popup"></slot>
+            <slot name="menupopup"></slot>
           </div>
         </div>
       </Host>

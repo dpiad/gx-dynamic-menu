@@ -15,23 +15,23 @@
 
   <dynamic-menu css-class="gx-dynamic-menu">
 
-    <dynamic-menu-action item-title="Destino" popup-id="pop1" slot="menu-items" css-class="gx-dynamic-menu-action">
+    <dynamic-menu-action item-title="Destino" popup-id="pop1" slot="menuitems" css-class="gx-dynamic-menu-action">
       <div slot="data">
         <label for="search">Buscar</label>
         <input type="text" id="search">
       </div>
     </dynamic-menu-action>
-    <dynamic-menu-action item-title="Llegada" item-subtitle="¿Cuando?" popup-id="pop2" slot="menu-items">
+    <dynamic-menu-action item-title="Llegada" item-subtitle="¿Cuando?" popup-id="pop2" slot="menuitems">
     </dynamic-menu-action>
-    <dynamic-menu-action item-title="Salida" item-subtitle="¿Cuando?" popup-id="pop2" slot="menu-items">
+    <dynamic-menu-action item-title="Salida" item-subtitle="¿Cuando?" popup-id="pop2" slot="menuitems">
     </dynamic-menu-action>
-    <dynamic-menu-action item-title="Huespedes" item-subtitle="¿Cuantos?" popup-id="pop3" slot="menu-items">
+    <dynamic-menu-action item-title="Huespedes" item-subtitle="¿Cuantos?" popup-id="pop3" slot="menuitems">
       <div slot="right">
         <button>Hola</button>
       </div>
     </dynamic-menu-action>
 
-    <dynamic-menu-popup id="pop1" slot="menu-popup">
+    <dynamic-menu-popup id="pop1" slot="menupopup">
       <div slot="data">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed metus mauris, condimentum et posuere eu, suscipit
         vel quam.
@@ -49,13 +49,13 @@
       </div>
     </dynamic-menu-popup>
 
-    <dynamic-menu-popup id="pop2" slot="menu-popup">
+    <dynamic-menu-popup id="pop2" slot="menupopup">
       <div slot="data">
         Popup para fecha
       </div>
     </dynamic-menu-popup>
 
-    <dynamic-menu-popup id="pop3" slot="menu-popup">
+    <dynamic-menu-popup id="pop3" slot="menupopup">
       <div slot="data">
         Otro popup
       </div>
@@ -69,7 +69,7 @@
   <!-- <dynamicmenu _ngcontent-stf-c150="" ng-reflect--class="gx-dynamic-menu">
     <dynamic-menu class="gx-dynamic-menu hydrated" css-class="gx-dynamic-menu">
 
-      <dynamicmenuaction _ngcontent-stf-c150="" data-slot="menu-items" slot="menu-items" ng-reflect--title="Destino"
+      <dynamicmenuaction _ngcontent-stf-c150="" data-slot="menuitems" slot="menuitems" ng-reflect--title="Destino"
         ng-reflect--popupid="pop1">
         <dynamic-menu-action role="button" popup-id="pop1" class="hydrated">
           <div slot="data">
@@ -79,13 +79,13 @@
         </dynamic-menu-action>
       </dynamicmenuaction>
 
-      <dynamicmenuaction _ngcontent-stf-c150="" data-slot="menu-items" slot="menu-items" ng-reflect--title="LLegada"
+      <dynamicmenuaction _ngcontent-stf-c150="" data-slot="menuitems" slot="menuitems" ng-reflect--title="LLegada"
         ng-reflect--subtitle="¿Cuando?" ng-reflect--popupid="pop2">
         <dynamic-menu-action role="button" popup-id="pop2" class="hydrated">
         </dynamic-menu-action>
       </dynamicmenuaction>
 
-      <dynamicmenupopup _ngcontent-stf-c150="" data-slot="menu-popup" slot="menu-popup"
+      <dynamicmenupopup _ngcontent-stf-c150="" data-slot="menupopup" slot="menupopup"
         ng-reflect--class="gx-dynamic-menu-popup" ng-reflect--id="pop1">
         <dynamic-menu-popup id="pop1" tabindex="0" class="gx-dynamic-menu-popup hidden hydrated">
           <div slot="data">
@@ -94,7 +94,7 @@
         </dynamic-menu-popup>
       </dynamicmenupopup>
 
-      <dynamicmenupopup _ngcontent-stf-c150="" data-slot="menu-popup" slot="menu-popup"
+      <dynamicmenupopup _ngcontent-stf-c150="" data-slot="menupopup" slot="menupopup"
         ng-reflect--class="gx-dynamic-menu-popup" ng-reflect--id="pop2">
         <dynamic-menu-popup id="pop2" tabindex="0" class="gx-dynamic-menu-popup hidden hydrated">
           <div slot="data">
